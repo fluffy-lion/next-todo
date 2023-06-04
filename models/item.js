@@ -10,6 +10,6 @@ const ItemSchema = new Schema({
 
 // get the item that  already exists or create a new model that is called item
 // based on the item schema 
-const Item = models.Prompt || model('Item', ItemSchema)
+const Item = models.Item || model('Item', ItemSchema)
 
 export default Item
