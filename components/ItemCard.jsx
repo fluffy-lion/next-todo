@@ -1,8 +1,8 @@
 import React from 'react'
 
-function ItemCard() {
+function ItemCard({ item }) {
   return (
-    <div>ItemCard</div>
+    <div><span>{item.item}</span></div>
   )
 }
 

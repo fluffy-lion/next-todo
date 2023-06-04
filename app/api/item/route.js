@@ -5,7 +5,8 @@ export const GET = async (request) => {
     try {
         await connectToDB()
                                 // find all
-        const items = await Item.find({}).populate('item')
+        const items = await Item.find({})
+        //.populate('item')
 
         return new Response(JSON.stringify(items), {
             status: 200

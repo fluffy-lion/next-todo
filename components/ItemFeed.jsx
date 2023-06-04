@@ -1,20 +1,20 @@
 'use client'
 
 import { useState, useEffect } from "react"
+import ItemCard from "./ItemCard"
 
-function ItemFeed() {
-    const [items, setItems] = useState([])
+function ItemFeed({ items }) {
+   
 
-    useEffect(() => {
-        const fetchItems = async () => {
-            const response = await fetch('/api/item')
-            const data = response.json()
-            setItems(data)
-        }
-        fetchItems()
-    }, [])
+    
     return (
-        <div>ItemFeed</div>
+        <>
+        {items ? 
+        items.map((item) => {
+            return <ItemCard key={item._id} item={item} />
+        }) : <div> </div>
+        }
+        </>
     )
 }
 
