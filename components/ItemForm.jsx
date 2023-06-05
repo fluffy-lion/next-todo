@@ -15,7 +15,7 @@ const ItemForm = ({
             <form
                 onSubmit={handleSubmit}
             >
-                <h1>item form</h1>
+                <h1>{type} form</h1>
                 <label>
                     <textarea
                         value={post.item}

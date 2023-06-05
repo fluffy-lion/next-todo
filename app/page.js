@@ -2,12 +2,11 @@
 'use client'
 
 import { useState, useEffect } from "react"
-
+import { useRouter } from "next/navigation"
 import ItemForm from "@/components/ItemForm"
 import ItemFeed from "@/components/ItemFeed"
 const App = () => {
-  // const router = useRouter()
-  // const { data: session } = useSession()
+  const router = useRouter()
   // are we submitting the form?
   const [submitting, setSubmitting] = useState(false)
   const [post, setPost] = useState({
@@ -15,6 +14,25 @@ const App = () => {
   })
   const [items, setItems] = useState([])
 
+  const handleEdit = (item) => {
+    router.push(`/update-item?id=${item._id}`)
+  }
+  const handleDelete = async (item) => {
+    const hasConfirmed = confirm('delete item?')
+    if(hasConfirmed) {
+      try {
+        await fetch(`api/item/${item._id.toString()}`, {
+          method: 'DELETE'
+        })
+        const filteredItems = items.filter((item) => item._id !== post._id)
+        setPost(filteredItems)
+        fetchItems()
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+  }
   const fetchItems = async () => {
     const response = await fetch('/api/item')
     const data = await response.json()
@@ -45,7 +63,7 @@ const App = () => {
         // meaning, send to home page
         // router.push('/')
         console.log('submitted')
-        setPost({item: ''})
+        setPost({ item: '' })
         fetchItems()
       }
     } catch (error) {
@@ -65,7 +83,10 @@ const App = () => {
         submitting={submitting}
         handleSubmit={createItem}
       />
-      <ItemFeed items={items} />
+      <ItemFeed
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+        items={items} />
     </>
   )
 }
