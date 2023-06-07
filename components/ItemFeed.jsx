@@ -1,12 +1,12 @@
 'use client'
-
+import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import ItemCard from "./ItemCard"
 import CreateItem from "./CreateItem"
 
 function ItemFeed() {
     const [items, setItems] = useState([])
-
+    const router = useRouter()
     const handleEdit = (item) => {
         router.push(`/update-item?id=${item._id}`)
       }
